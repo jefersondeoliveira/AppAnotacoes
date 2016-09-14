@@ -1,4 +1,4 @@
-package com.example.jeferson.anotacoes;
+package com.example.jeferson.anotacoes.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import com.example.jeferson.anotacoes.R;
+import com.example.jeferson.anotacoes.data.Anotacao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +20,7 @@ public class MainActivity4 extends AppCompatActivity {
     private Button insertButton;
     private ListView notesList;
 
-    private List<String> values;
+    private List<Anotacao> listAnotacao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +31,7 @@ public class MainActivity4 extends AppCompatActivity {
         insertButton = (Button) findViewById(R.id.insert_button);
         notesList = (ListView) findViewById(R.id.notes_list);
 
-        values = new ArrayList<>();
+        listAnotacao = new ArrayList<>();
 
         insertButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,9 +39,16 @@ public class MainActivity4 extends AppCompatActivity {
 
                 String texto = editBox.getText().toString();
 
-                values.add(texto);
+                Anotacao anotacao = new Anotacao();
+                anotacao.setDescricao(texto);
 
-                Log.i("Log de teste", values.size()+"");
+                listAnotacao.add(anotacao);
+
+                Log.i("Log de teste", "-------");
+                for(Anotacao a : listAnotacao){
+                    int index = listAnotacao.indexOf(a);
+                    Log.i("Log de teste", "["+index+"] "+a.getDescricao());
+                }
 
             }
         });
