@@ -5,10 +5,9 @@ import java.util.Date;
 /**
  * Created by jeferson on 14/09/16.
  */
-public class Anotacao {
+public class AnotacaoOld {
 
     private String descricao;
-    private Date data;
 
     public String getDescricao() {
         return descricao;
@@ -16,13 +15,5 @@ public class Anotacao {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public Date getData() {
-        return data;
-    }
-
-    public void setData(Date data) {
-        this.data = data;
     }
 }

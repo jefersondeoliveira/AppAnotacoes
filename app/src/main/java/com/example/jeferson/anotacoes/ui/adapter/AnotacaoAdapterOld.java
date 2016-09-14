@@ -12,19 +12,18 @@ import com.example.jeferson.anotacoes.data.Anotacao;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 /**
  * Created by jeferson on 14/09/16.
  */
-public class AnotacaoAdapter extends ArrayAdapter<Anotacao> {
+public class AnotacaoAdapterOld extends ArrayAdapter<Anotacao> {
 
     private Context context;
     private List<Anotacao> anotacaoList;
 
-    public AnotacaoAdapter(Context context,  List<Anotacao> anotacaoList) {
+    public AnotacaoAdapterOld(Context context, List<Anotacao> anotacaoList) {
         super(context, 0, anotacaoList);
         this.anotacaoList = anotacaoList;
         this.context = context;
@@ -40,18 +39,7 @@ public class AnotacaoAdapter extends ArrayAdapter<Anotacao> {
         TextView txtDesc = (TextView) view.findViewById(R.id.descricao);
         txtDesc.setText(item.getDescricao());
 
-        TextView txtDate = (TextView) view.findViewById(R.id.data);
-        txtDate.setText(getDataFromModel(item.getData()));
-
         return view;
-    }
-
-    public String getDataFromModel(Date date){
-
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-        String dataTexto = df.format(date);
-
-        return dataTexto;
     }
 
 }
