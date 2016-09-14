@@ -13,13 +13,12 @@ import android.widget.ListView;
 import com.example.jeferson.anotacoes.R;
 import com.example.jeferson.anotacoes.data.Anotacao;
 import com.example.jeferson.anotacoes.ui.adapter.AnotacaoAdapter;
+import com.example.jeferson.anotacoes.utils.SharedPreferencesManager;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-public class MainActivity9 extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class MainActivity10 extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private EditText editBox;
     private Button insertButton;
@@ -27,6 +26,8 @@ public class MainActivity9 extends AppCompatActivity implements AdapterView.OnIt
 
     private List<Anotacao> listAnotacao;
     private AnotacaoAdapter adapter;
+
+    private SharedPreferencesManager preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,10 @@ public class MainActivity9 extends AppCompatActivity implements AdapterView.OnIt
         insertButton = (Button) findViewById(R.id.insert_button);
         notesList = (ListView) findViewById(R.id.notes_list);
 
-        listAnotacao = new ArrayList<>();
+        preferences = SharedPreferencesManager.getInstance(this);
+
+        listAnotacao = preferences.getAnotacoes();
+
         adapter = new AnotacaoAdapter(this, listAnotacao);
         notesList.setOnItemClickListener(this);
         notesList.setAdapter(adapter);
@@ -50,13 +54,11 @@ public class MainActivity9 extends AppCompatActivity implements AdapterView.OnIt
 
                 Anotacao anotacao = new Anotacao();
                 anotacao.setDescricao(texto);
-
-                // Get the date today using Calendar object.
-                Date today = Calendar.getInstance().getTime();
-
-                anotacao.setData(today);
+                anotacao.setData(Calendar.getInstance().getTime());
 
                 listAnotacao.add(anotacao);
+
+                preferences.salvaAnotacoes(listAnotacao);
 
                 adapter.notifyDataSetChanged();
 
@@ -82,6 +84,7 @@ public class MainActivity9 extends AppCompatActivity implements AdapterView.OnIt
                     public void onClick(DialogInterface dialog, int which) {
 
                         listAnotacao.remove(anotacao);
+                        preferences.salvaAnotacoes(listAnotacao);
                         adapter.notifyDataSetChanged();
 
                     }
