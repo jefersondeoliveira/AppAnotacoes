@@ -3,25 +3,25 @@ package com.example.jeferson.anotacoes.ui;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.jeferson.anotacoes.R;
 import com.example.jeferson.anotacoes.data.Anotacao;
+import com.example.jeferson.anotacoes.ui.adapter.AnotacaoAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity6 extends AppCompatActivity {
+public class MainActivity7 extends AppCompatActivity {
 
     private EditText editBox;
     private Button insertButton;
     private ListView notesList;
 
     private List<Anotacao> listAnotacao;
-    private ArrayAdapter<Anotacao> adapter;
+    private AnotacaoAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class MainActivity6 extends AppCompatActivity {
         notesList = (ListView) findViewById(R.id.notes_list);
 
         listAnotacao = new ArrayList<>();
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listAnotacao);
+        adapter = new AnotacaoAdapter(this, listAnotacao);
         notesList.setAdapter(adapter);
 
         insertButton.setOnClickListener(new View.OnClickListener() {
@@ -48,6 +48,8 @@ public class MainActivity6 extends AppCompatActivity {
                 listAnotacao.add(anotacao);
 
                 adapter.notifyDataSetChanged();
+
+                editBox.setText("");
 
             }
         });
